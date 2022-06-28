@@ -14,9 +14,19 @@ const Login = (props) => {
   //this runs when enteredEmail and/or enteredPassword are updated!
   //originally had setFormIsValid as a dependency BUT REMOVED because state-updating functions by default are insured by react to never change
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    const identifier = setTimeout(() => {
+      //this section of code now only runs once instead of checking every keystroke
+      console.log('Checking form validity')
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500)
+
+    //this section runs with every keystroke
+    return () => {
+      console.log('CLEANUP')
+      clearTimeout(identifier)
+    }
   }, [enteredEmail, enteredPassword])
 
   const emailChangeHandler = (event) => {
