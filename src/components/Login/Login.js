@@ -23,6 +23,7 @@ const Login = (props) => {
     }, 500)
 
     //this section runs with every keystroke
+    //this is known as a cleanup function
     return () => {
       console.log('CLEANUP')
       clearTimeout(identifier)
