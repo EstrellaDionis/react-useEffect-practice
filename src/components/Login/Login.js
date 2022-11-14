@@ -12,18 +12,20 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
 
+  //Lesson 114. VERY good and simple explanation of what's happening.
   //'effect running' will only show up once (when the component mounts)
   //'effect cleanup' will only show once the component is removed
   useEffect(() => {
     console.log('EFFECT RUNNING')
 
     return () => {
-      console.log('EFFECT CLEANUP')
+      console.log('EFFECT CLEANUP AKA CLEANUP FUNCTION')
     }
   }, [])
 
   //this runs when enteredEmail and/or enteredPassword are updated!
   //originally had setFormIsValid as a dependency BUT REMOVED because state-updating functions by default are insured by react to never change
+  //this checks 500 milliseconds after user has stopped typing
   useEffect(() => {
     const identifier = setTimeout(() => {
       //this section of code now only runs once instead of checking every keystroke
@@ -38,7 +40,7 @@ const Login = (props) => {
     //if the dependencies are empty in a cleanup function (return function), it will run only when the component is REMOVED
     return () => {
       console.log('CLEANUP')
-      clearTimeout(identifier)
+      clearTimeout(identifier) //clearing the setTimeout function above. Its clearing the timer before setting a new one
     }
   }, [enteredEmail, enteredPassword])
 
